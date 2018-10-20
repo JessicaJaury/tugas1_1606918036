@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title>Lihat Pegawai</title>
+
+	<object th:include="fragments/fragment :: css" th:remove="tag"></object>
+	<object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+
+<body>
+	<nav th:replace="fragments/fragment :: navbar"></nav>
+	<br>
+	<div style="margin-left:2rem">
+		<p th:text="${message}" style="color:#d4af37"></p>
+		<table>
+			<tr>
+				<td style="width:35rem;">
+					<h4>Data Pegawai Termuda</h4>
+					<div class="row" style="margin-left:0rem;margin-top:1rem">
+						
+						<div class="column" style="margin-right:3rem">
+							<p>NIP</p>
+							<p>Nama</p>
+							<p>Tempat Lahir</p>
+							<p>Tanggal Lahir</p>
+							<p>Tahun Masuk</p>
+							<p>Nama Instansi</p>
+							<ul th:each="jabatan, iter : ${pegawaiTermuda.daftarJabatan}" class="list-unstyled">
+								<li th:if="${iter.index}==0">Jabatan</li>
+								<li th:unless="${iter.index}==0"><br></li>
+							</ul>
+							<p>Gaji</p>			
+						</div>
+						<div class="column">
+							<p th:text="${pegawaiTermuda.nip}"></p>
+							<p th:text="${pegawaiTermuda.nama}"></p>
+							<p th:text="${pegawaiTermuda.tempatLahir}"></p>
+							<p th:text="${pegawaiTermuda.tanggalLahir}"></p>
+							<p th:text="${pegawaiTermuda.tahunMasuk}"></p>
+							<p th:text="${pegawaiTermuda.instansi.nama} + ' - ' + ${pegawaiTermuda.instansi.provinsi.nama}"></p>
+							<ul th:each="jabatan : ${pegawaiTermuda.daftarJabatan}">
+								<li th:text="${jabatan.nama}"></li>
+							</ul>
+							
+							<p th:text="'Rp'+${gajiPegawaiTermuda}"></p>
+							
+						</div>
+					</div>
+				</td>
+				<td>
+					<h4>Data Pegawai Tertua</h4>
+					<div class="row" style="margin-left:0rem;margin-top:1rem">
+						
+						<div class="column" style="margin-right:3rem">
+							<p>NIP</p>
+							<p>Nama</p>
+							<p>Tempat Lahir</p>
+							<p>Tanggal Lahir</p>
+							<p>Tahun Masuk</p>
+							<p>Nama Instansi</p>
+							<ul th:each="jabatan, iter : ${pegawaiTertua.daftarJabatan}" class="list-unstyled">
+								<li th:if="${iter.index}==0">Jabatan</li>
+								<li th:unless="${iter.index}==0"><br></li>
+							</ul>
+							<p>Gaji</p>			
+						</div>
+						<div class="column">
+							<p th:text="${pegawaiTertua.nip}"></p>
+							<p th:text="${pegawaiTertua.nama}"></p>
+							<p th:text="${pegawaiTertua.tempatLahir}"></p>
+							<p th:text="${pegawaiTertua.tanggalLahir}"></p>
+							<p th:text="${pegawaiTertua.tahunMasuk}"></p>
+							<p th:text="${pegawaiTertua.instansi.nama} + ' - ' + ${pegawaiTertua.instansi.provinsi.nama}"></p>
+							<ul th:each="jabatan : ${pegawaiTertua.daftarJabatan}">
+								<li th:text="${jabatan.nama}"></li>
+							</ul>
+							
+							<p th:text="'Rp'+${gajiPegawaiTertua}"></p>
+							
+						</div>
+					</div>
+				
+				</td>
+			</tr>
+		</table>
+	
+	</div>
+</body>
+</html>

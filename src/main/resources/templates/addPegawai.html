@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title>Tambah Pegawai</title>
+	<object th:include="fragments/fragment :: css" th:remove="tag"></object>
+	<object th:include="fragments/fragment :: js" th:remove="tag"></object>
+	<object th:include="fragments/fragment :: jquery" th:remove="tag"></object>
+	<script th:src="@{/js/jquery-3.3.1.min.js}"></script>
+</head>
+
+<body>
+	<nav th:replace="fragments/fragment :: navbar"></nav>
+	<br>
+	<div style="margin-left:2rem">
+		<h4>Tambah Pegawai</h4>
+		<form th:action="@{/pegawai/tambah}" th:object="${pegawai}" method="POST" id="tambahPegawai">
+
+			<table>
+				<tr style="height:3rem">
+					<td style="width:10rem">Nama</td>
+					<td><input type="text" th:name="nama" maxlength="255" class="form-control" required="required" th:value="*{nama}"/></td>
+				</tr>
+				<tr style="height:3rem">
+					<td>Tempat Lahir</td>
+					<td><input type="text" th:name="tempatLahir" maxlength="255" class="form-control" required="required" th:value="*{tempatLahir}"/></td>
+				</tr>
+				<tr style="height:3rem">
+					<td>Tanggal Lahir</td>
+					<td><input type="date" th:name="tanggalLahir" maxlength="255" class="form-control" required="required" th:value="${tanggalLahir}"/></td>
+				</tr>
+				<tr style="height:3rem">
+					<td>Tahun Masuk</td>
+					<td><input type="number" th:name="tahunMasuk" th:max="2018" class="form-control" required="required" th:value="*{tahunMasuk}" /></td>
+				</tr>
+					
+				<tr style="height:3rem">
+					<td>Provinsi</td>
+					<td>
+						<select class="form-control" th:name="idProvinsi" id="provinsi" required="required">
+						<option disabled="disabled" selected="selected" >Pilih Provinsi</option>
+					    	<option th:each="provinsi : ${allProvinsi}" th:value="${provinsi.id}" th:text="${provinsi.nama}"></option>
+					    </select>
+					</td>
+				</tr>
+				 
+				<tr style="height:3rem">
+					<td>Nama Instansi</td>
+					<td>
+						<select class="form-control" th:name="idInstansi" required="required" id="instansi">
+							<option disabled="disabled" selected="selected" >Pilih Instansi</option>
+					    	<option th:each="instansi : ${allInstansi}" th:value="${instansi.id}" th:text="${instansi.nama}"></option>
+					    </select>
+					</td>
+				</tr>
+				
+				<tr style="height:3rem">
+					<td>Jabatan</td>
+					<td>
+						<select class="form-control" th:name="idJabatan">
+							<option disabled="disabled" selected="selected" >Pilih Jabatan</option>
+					    	<option th:each="jabatan : ${allJabatan}" th:value="${jabatan.id}" th:text="${jabatan.nama}"></option>
+					    	
+					    </select>
+					    
+					</td>
+				
+				</tr>
+				<tr>
+					<td></td>
+					<td>
+						<button type="submit" name="addRow" class="btn btn-info">Tambah Jabatan Lainnya</button>
+				    </td>
+				</tr>
+	
+				<!-- 
+				<tr style="height:3rem">
+					<td>Nama Instansi</td>
+					<td>
+						<select class="form-control" th:name="instansi" id="instansi" form="tambahPegawai" required="required">
+							<option disabled="disabled" selected="selected" >Pilih Instansi</option>
+					    	<option th:each="instansi : ${allInstansi}" th:value="${instansi.id}" th:text="${instansi.nama}"></option>
+					    </select>
+					</td>
+				</tr>
+					
+				<tr style="height:3rem" th:each="jabatan,iterationStatus : *{daftarJabatan}">
+					<td style="vertical-align: top; text-align: left;" height="50" th:text="${iterationStatus.count} == 1 ? 'Jabatan' : ''"></td>
+					<td>
+						<select class="form-control" name="jabatan">
+							<option disabled="disabled" selected="selected" >Pilih Jabatan</option>
+					    	<option th:each="jabatan : ${allJabatan}" th:field="*{daftarJabatan[__${iterationStatus.index}__].id}" th:value="${jabatan.id}" th:text="${jabatan.nama}"></option>
+					    </select>
+					    <button type="submit" name="deleteRow" th:value="${iterationStatus.index}" th:style="${iterationStatus.count} == 1 ? 'display: none;' : ''">Hapus</button>
+					</td>
+				
+				</tr>
+				<tr>
+					<td></td>
+					<td>
+						<button type="submit" name="addRow" class="btn btn-info">Tambah Jabatan Lainnya</button>
+				    </td>
+				</tr>
+			 -->
+			</table>
+			<br>
+			<button type="submit" class="btn btn-warning">Simpan</button>
+		</form>
+	</div>
+</body>
+
+<script th:inline="javascript">
+	$('#provinsi').change(
+		function() {
+			$.getJSON("http://localhost:8080/pegawai/instansi", {
+			    provinsiId : $(this).val(),
+			    ajax : 'true'
+			}, function(data) {
+			    var html = '<option value="">Pilih Instansi</option>';
+			    for ( var i = 0; i < data.length; i++) {
+			        html += '<option value="' + data[i].id + '">'+ data[i].nama + '</option>';
+			    }
+			    html += '</option>';
+			    $('#instansi').html(html);
+			});
+     });
+	
+	$('#instansi').change(
+			function() {
+				$.getJSON("http://localhost:8080/pegawai/provinsi", {
+				    instansiId : $(this).val(),
+				    ajax : 'true'
+				}, function(data) {
+				    var html = '<option value="">Pilih Provinsi</option>';
+				    for ( var i = 0; i < data.length; i++) {
+				        html += '<option value="' + data[i].id + '">'+ data[i].nama + '</option>';
+				    }
+				    html += '</option>';
+				    $('#provinsi').html(html);
+				});
+	     });
+</script>
+
+</html>
