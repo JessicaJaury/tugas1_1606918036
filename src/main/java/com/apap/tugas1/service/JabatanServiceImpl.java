@@ -2,6 +2,7 @@ package com.apap.tugas1.service;
 
 import java.math.BigInteger;
 import java.util.List;
+import java.util.Optional;
 
 import javax.transaction.Transactional;
 
@@ -28,7 +29,7 @@ public class JabatanServiceImpl implements JabatanService{
 	}
 
 	@Override
-	public JabatanModel findJabatanById(BigInteger id) {
+	public Optional<JabatanModel> findJabatanById(Long id) {
 		return jabatanDb.findById(id);
 	}
 

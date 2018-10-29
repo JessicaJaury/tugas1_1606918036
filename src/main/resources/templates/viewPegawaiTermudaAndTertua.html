@@ -26,7 +26,7 @@
 							<p>Tanggal Lahir</p>
 							<p>Tahun Masuk</p>
 							<p>Nama Instansi</p>
-							<ul th:each="jabatan, iter : ${pegawaiTermuda.daftarJabatan}" class="list-unstyled">
+							<ul th:each="jabatan, iter : ${pegawaiTermuda.listJabatan}" class="list-unstyled">
 								<li th:if="${iter.index}==0">Jabatan</li>
 								<li th:unless="${iter.index}==0"><br></li>
 							</ul>
@@ -39,7 +39,7 @@
 							<p th:text="${pegawaiTermuda.tanggalLahir}"></p>
 							<p th:text="${pegawaiTermuda.tahunMasuk}"></p>
 							<p th:text="${pegawaiTermuda.instansi.nama} + ' - ' + ${pegawaiTermuda.instansi.provinsi.nama}"></p>
-							<ul th:each="jabatan : ${pegawaiTermuda.daftarJabatan}">
+							<ul th:each="jabatan : ${pegawaiTermuda.listJabatan}">
 								<li th:text="${jabatan.nama}"></li>
 							</ul>
 							
@@ -59,7 +59,7 @@
 							<p>Tanggal Lahir</p>
 							<p>Tahun Masuk</p>
 							<p>Nama Instansi</p>
-							<ul th:each="jabatan, iter : ${pegawaiTertua.daftarJabatan}" class="list-unstyled">
+							<ul th:each="jabatan, iter : ${pegawaiTertua.listJabatan}" class="list-unstyled">
 								<li th:if="${iter.index}==0">Jabatan</li>
 								<li th:unless="${iter.index}==0"><br></li>
 							</ul>
@@ -72,7 +72,7 @@
 							<p th:text="${pegawaiTertua.tanggalLahir}"></p>
 							<p th:text="${pegawaiTertua.tahunMasuk}"></p>
 							<p th:text="${pegawaiTertua.instansi.nama} + ' - ' + ${pegawaiTertua.instansi.provinsi.nama}"></p>
-							<ul th:each="jabatan : ${pegawaiTertua.daftarJabatan}">
+							<ul th:each="jabatan : ${pegawaiTertua.listJabatan}">
 								<li th:text="${jabatan.nama}"></li>
 							</ul>
 							

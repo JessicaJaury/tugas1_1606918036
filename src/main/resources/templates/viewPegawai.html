@@ -22,7 +22,7 @@
 				<p>Tanggal Lahir</p>
 				<p>Tahun Masuk</p>
 				<p>Nama Instansi</p>
-				<ul th:each="jabatan, iter : ${pegawai.daftarJabatan}" class="list-unstyled">
+				<ul th:each="jabatan, iter : ${pegawai.listJabatan}" class="list-unstyled">
 					<li th:if="${iter.index}==0">Jabatan</li>
 					<li th:unless="${iter.index}==0"><br></li>
 				</ul>
@@ -35,7 +35,7 @@
 				<p th:text="${pegawai.tanggalLahir}"></p>
 				<p th:text="${pegawai.tahunMasuk}"></p>
 				<p th:text="${pegawai.instansi.nama} + ' - ' + ${pegawai.instansi.provinsi.nama}"></p>
-				<ul th:each="jabatan : ${pegawai.daftarJabatan}">
+				<ul th:each="jabatan : ${pegawai.listJabatan}">
 					<li th:text="${jabatan.nama}"></li>
 				</ul>
 				
@@ -44,7 +44,7 @@
 			</div>
 		</div>
 		
-		<a class="btn btn-warning" th:href="@{|/pegawai/ubah/?nip=${pegawai.nip}|}">Ubah</a>
+		<a class="btn" style="background-color: #696969; color:white;" th:href="@{|/pegawai/ubah/?nip=${pegawai.nip}|}">Ubah</a>
 		
 	</div>
 </body>

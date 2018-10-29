@@ -24,7 +24,7 @@
 			<div class="column">
 				<p th:text="${jabatan.nama}"></p>
 				<p th:text="${jabatan.deskripsi}"></p>
-				<p th:text="'Rp'+${jabatan.gaji_pokok}"></p>
+				<p th:text="'Rp'+${jabatan.gajiPokok}"></p>
 				<p th:text="${jumlahPegawai}"></p>				
 			</div>
 		</div>
@@ -33,13 +33,13 @@
 				<td>
 					<form th:action="@{/jabatan/ubah}" method="GET">
 						<input type="hidden" th:name="idJabatan" th:value="${jabatan.id}"/>
-						<button type="submit" class="btn button btn-warning" style="margin-right:1rem;margin-top:0.5rem;">Ubah</button>
+						<button type="submit" class="btn button" style="background-color: #696969; color:white;margin-right:1rem;margin-top:0.5rem;">Ubah</button>
 					</form>
 				</td>
 				<td>
 					<form th:action="@{/jabatan/hapus/}" th:object="${jabatan}" method="POST">
 						<input type="hidden" th:field="${jabatan.id}" />
-						<button type="submit" class="btn button btn-danger" style="margin-right:1rem;margin-top:0.5rem;">Hapus</button>
+						<button type="submit" class="btn button btn-danger" style="background-color: #696969; color:white;margin-right:1rem;margin-top:0.5rem;">Hapus</button>
 		   			</form>
 				</td>
 			</tr>

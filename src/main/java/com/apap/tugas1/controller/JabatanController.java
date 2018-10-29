@@ -1,15 +1,12 @@
 package com.apap.tugas1.controller;
 
-import java.math.BigInteger;
+import java.text.DecimalFormat;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import com.apap.tugas1.model.JabatanModel;
 import com.apap.tugas1.model.PegawaiModel;
@@ -37,32 +34,15 @@ public class JabatanController {
 		return "addJabatanSuccess";
 	}
 	
-	@RequestMapping(value = "/jabatan/view", method = RequestMethod.GET)
-	private String lihatJabatan(@RequestParam("idJabatan") BigInteger id, Model model) {
-		JabatanModel jabatan = jabatanService.findJabatanById(id);
-		List<PegawaiModel> allPegawai = pegawaiService.viewAll();
-		int counter = 0;
-		for(int i=0;i<allPegawai.size();i++) {
-			for(int j=0;j<allPegawai.get(i).getDaftarJabatan().size();j++) {
-				if(allPegawai.get(i).getDaftarJabatan().get(j)==jabatan)
-					counter++;
-			}
-		}
-		model.addAttribute("jabatan", jabatan);
-		model.addAttribute("jumlahPegawai", counter);
-		model.addAttribute("message", "");
-		return "viewJabatan";
-	}
-	
 	@RequestMapping(value = "/jabatan/hapus", method = RequestMethod.POST)
 	private String delete(@ModelAttribute JabatanModel jabatan, Model model) throws Exception{
-		String namaJabatan = jabatanService.findJabatanById(jabatan.getId()).getNama();
+		String namaJabatan = jabatanService.findJabatanById(jabatan.getId()).get().getNama();
 		try {
 			jabatanService.deleteJabatan(jabatan);
 	    }
 		catch (Exception e) {
 			model.addAttribute("message", "Maaf, jabatan tidak dapat dihapus");
-			model.addAttribute("jabatan", jabatanService.findJabatanById(jabatan.getId()));
+			model.addAttribute("jabatan", jabatanService.findJabatanById(jabatan.getId()).get());
 			return "viewJabatan";
 	    }
 		
@@ -71,28 +51,48 @@ public class JabatanController {
 	}
 	
 	@RequestMapping(value = "/jabatan/ubah", method = RequestMethod.GET)
-	private String ubahJabatan(@RequestParam("idJabatan") BigInteger id, Model model) {
-		model.addAttribute("jabatan", jabatanService.findJabatanById(id));
+	private String ubahJabatan(@RequestParam("idJabatan") Long id, Model model) {
+		model.addAttribute("jabatan", jabatanService.findJabatanById(id).get());
 		model.addAttribute("message", "");
-		return "changeJabatan";
+		return "updateJabatan";
 	}
 	
 	@RequestMapping(value = "/jabatan/ubah", method = RequestMethod.POST)
 	private String ubahJabatanSubmit(@ModelAttribute JabatanModel jabatan, Model model) {
-		JabatanModel jabatanLama = jabatanService.findJabatanById(jabatan.getId());
+		JabatanModel jabatanLama = jabatanService.findJabatanById(jabatan.getId()).get();
 		jabatanLama.setNama(jabatan.getNama());
 		jabatanLama.setDeskripsi(jabatan.getDeskripsi());
-		jabatanLama.setGaji_pokok(jabatan.getGaji_pokok());
+		jabatanLama.setGajiPokok(jabatan.getGajiPokok());
 		jabatanService.addJabatan(jabatanLama);
 		
 		model.addAttribute("jabatan", jabatan);
 		model.addAttribute("message", "Data Jabatan Berhasil Diubah");
-		return "changeJabatan";
+		return "updateJabatan";
 	}
 
+	@RequestMapping(value = "/jabatan/view", method = RequestMethod.GET)
+	private String lihatJabatan(@RequestParam("idJabatan") Long id, Model model) {
+		JabatanModel jabatan = jabatanService.findJabatanById(id).get();
+		List<PegawaiModel> pegawaiList = pegawaiService.viewAll();
+		int counter = 0;
+		for(int i=0;i<pegawaiList.size();i++) {
+			for(int j=0;j<pegawaiList.get(i).getListJabatan().size();j++) {
+				if(pegawaiList.get(i).getListJabatan().get(j)==jabatan)
+					counter++;
+			}
+		}
+		model.addAttribute("jabatan", jabatan);
+		model.addAttribute("jumlahPegawai", counter);
+		
+		DecimalFormat decimalFormat = new DecimalFormat("#,###");
+		model.addAttribute("gaji", decimalFormat.format(jabatan.getGajiPokok()));
+		model.addAttribute("message", "");
+		return "viewJabatan";
+	}
+	
 	@RequestMapping(value = "/jabatan/viewall", method = RequestMethod.GET)
 	private String lihatSemuaJabatan(Model model) {
-		model.addAttribute("daftarJabatan", jabatanService.viewAll());
+		model.addAttribute("listJabatan", jabatanService.viewAll());
 		return "viewAllJabatan";
 	}
 }

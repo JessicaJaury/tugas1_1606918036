@@ -1,28 +1,30 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.com">
-  <head>
-    <title th:fragment="title" th:text="${pageTitle}"></title>
-
-    <head th:fragment="css&js">
-      <link rel="stylesheet" th:href="@{/css/bootstrap/bootstrap.min.css}">
-      <link rel="stylesheet" th:href="@{/css/master.css}">
-      <script th:src="@{/js/bootstrap/bootstrap.min.js}"></script>
-    </head>
-
-  </head>
-
-  <body>
-    <nav th:fragment="navbar" class="navbar navbar-expand-lg navbar-dark bg-dark">
-      <a href="#" class="navbar-brand">SIPEG</a>
-      <div class="collapse navbar-collapse" id="navbarSupportContent">
-        <ul class="navbar-nav mr-auto">
-          <li class="nav-item active">
-            <a th:href="@{/}" class="nav-link">Home</a>
-          </li>
-        </ul>
-      </div>
-    </nav>
-
-  </body>
-
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<title>SIPEG</title>
+	
+		<head th:fragment="css">
+			<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+		</head>
+		
+		<head th:fragment="js">
+			<script th:src="@{/js/bootstrap.min.js}"></script>
+		</head>
+		<head th:fragment="jquery">
+			<script th:src="@{/js/jquery-3.3.1.min.js}"></script>
+		</head>
+	</head>
+	
+	<body>
+		<nav th:fragment="navbar" class="navbar navbar-expand-lg navbar-dark "  style="background-color: black;">
+			<a class="navbar-brand" href="/">SIPEG</a>
+			<div class="collapse navbar-collapse navbar-nav mr-auto" id="navbarSupportedContent">
+				<a class="nav-link" href="/">Home</a>
+				<a class="nav-link" href="/pegawai/tambah">Tambah Pegawai</a>
+				<a class="nav-link" href="/jabatan/tambah">Tambah Jabatan</a>
+				<a class="nav-link" href="/pegawai/cari">Cari Pegawai</a>
+				<a class="nav-link" href="/jabatan/viewall">Lihat Semua Jabatan</a>
+			</div>
+		</nav>
+	</body>
 </html>

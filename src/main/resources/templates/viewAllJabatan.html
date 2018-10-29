@@ -6,8 +6,13 @@
 	<object th:include="fragments/fragment :: css" th:remove="tag"></object>
 	<object th:include="fragments/fragment :: js" th:remove="tag"></object>
 	<script th:src="@{/js/jquery-3.3.1.min.js}"></script>
+	
+	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
+ 	<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
+	<!--
 	<link rel="stylesheet" th:href="@{/DataTables/datatables.css}">
 	<script th:src="@{/DataTables/datatables.js}"></script>
+	-->
 </head>
 
 <body>
@@ -24,11 +29,11 @@
 					<th>Gaji Pokok</th>
 				</tr>
 			</thead>
-			<tr th:each="jabatan,iterationStatus : ${daftarJabatan}">
+			<tr th:each="jabatan,iterationStatus : ${listJabatan}">
 				<td th:text="${iterationStatus.count}"></td>
 				<td th:text="${jabatan.nama}"></td>
    				<td th:text="${jabatan.deskripsi}"></td>
-   				<td th:text="'Rp'+${jabatan.gaji_pokok}"></td>
+   				<td th:text="'Rp'+${jabatan.gajiPokok}"></td>
 			</tr>
 		</table>
 	</div>

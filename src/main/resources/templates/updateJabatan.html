@@ -30,12 +30,12 @@
 				<tr style="height:3rem">
 					<td>Gaji Pokok</td>
 					<td>Rp</td>
-					<td><input type="number" name="gaji_pokok" class="form-control" th:value="${jabatan.gaji_pokok}"/></td>
+					<td><input type="number" name="gaji_pokok" class="form-control" th:value="${jabatan.gajiPokok}"/></td>
 				</tr>
 			
 			</table>
 			<br>
-			<button type="submit" class="btn btn-warning">Simpan</button>
+			<button type="submit" class="btn" style="background-color: #696969; color:white">Simpan</button>
 			<a th:href="@{|/jabatan/view?idJabatan=${jabatan.id}|}"><button type="button" class="btn btn-danger">Cancel</button></a>
 		</form>
 	</div>

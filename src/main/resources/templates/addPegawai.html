@@ -47,7 +47,7 @@
 				<tr style="height:3rem">
 					<td>Nama Instansi</td>
 					<td>
-						<select class="form-control" th:name="idInstansi" required="required" id="instansi">
+						<select class="form-control" th:name="instansi.id" required="required" id="instansi">
 							<option disabled="disabled" selected="selected" >Pilih Instansi</option>
 					    	<option th:each="instansi : ${allInstansi}" th:value="${instansi.id}" th:text="${instansi.nama}"></option>
 					    </select>
@@ -69,42 +69,12 @@
 				<tr>
 					<td></td>
 					<td>
-						<button type="submit" name="addRow" class="btn btn-info">Tambah Jabatan Lainnya</button>
+						<button type="submit" name="addRow" class="btn" style="background-color: #696969; color:white">Tambah Jabatan Lainnya</button>
 				    </td>
 				</tr>
-	
-				<!-- 
-				<tr style="height:3rem">
-					<td>Nama Instansi</td>
-					<td>
-						<select class="form-control" th:name="instansi" id="instansi" form="tambahPegawai" required="required">
-							<option disabled="disabled" selected="selected" >Pilih Instansi</option>
-					    	<option th:each="instansi : ${allInstansi}" th:value="${instansi.id}" th:text="${instansi.nama}"></option>
-					    </select>
-					</td>
-				</tr>
-					
-				<tr style="height:3rem" th:each="jabatan,iterationStatus : *{daftarJabatan}">
-					<td style="vertical-align: top; text-align: left;" height="50" th:text="${iterationStatus.count} == 1 ? 'Jabatan' : ''"></td>
-					<td>
-						<select class="form-control" name="jabatan">
-							<option disabled="disabled" selected="selected" >Pilih Jabatan</option>
-					    	<option th:each="jabatan : ${allJabatan}" th:field="*{daftarJabatan[__${iterationStatus.index}__].id}" th:value="${jabatan.id}" th:text="${jabatan.nama}"></option>
-					    </select>
-					    <button type="submit" name="deleteRow" th:value="${iterationStatus.index}" th:style="${iterationStatus.count} == 1 ? 'display: none;' : ''">Hapus</button>
-					</td>
-				
-				</tr>
-				<tr>
-					<td></td>
-					<td>
-						<button type="submit" name="addRow" class="btn btn-info">Tambah Jabatan Lainnya</button>
-				    </td>
-				</tr>
-			 -->
 			</table>
 			<br>
-			<button type="submit" class="btn btn-warning">Simpan</button>
+			<button type="submit" class="btn" style="background-color: #696969; color:white">Simpan</button>
 		</form>
 	</div>
 </body>

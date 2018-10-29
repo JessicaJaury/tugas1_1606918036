@@ -32,7 +32,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class PegawaiModel implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private BigInteger id;
+	private Long id;
 	
 	@NotNull
 	@Size(max = 255)
@@ -67,14 +67,14 @@ public class PegawaiModel implements Serializable{
 	@ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
 	@JoinTable(name = "jabatan_pegawai",  joinColumns = { @JoinColumn(name = "id_pegawai") },
             inverseJoinColumns = { @JoinColumn(name = "id_jabatan") })
-	private List<JabatanModel> daftarJabatan;
+	private List<JabatanModel> listJabatan;
 
-	public List<JabatanModel> getDaftarJabatan() {
-		return daftarJabatan;
+	public List<JabatanModel> getListJabatan() {
+		return listJabatan;
 	}
 
-	public void setDaftarJabatan(List<JabatanModel> daftarJabatan) {
-		this.daftarJabatan = daftarJabatan;
+	public void setListJabatan(List<JabatanModel> listJabatan) {
+		this.listJabatan = listJabatan;
 	}
 
 	public String getNip() {
@@ -85,11 +85,11 @@ public class PegawaiModel implements Serializable{
 		this.nip = nip;
 	}
 
-	public BigInteger getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(BigInteger id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -134,26 +134,23 @@ public class PegawaiModel implements Serializable{
 	}
 	
 	public int getUmur() {
-		//LocalDate birthday = tanggalLahir.toLocalDate();
 		LocalDate now = LocalDate.now();
 		
-		//return now.getYear()-tanggalLahir.toLocalDate().getYear();
-		//return now.getYear()-birthday.getYear();
 		LocalDate birthday = tanggalLahir.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 		return now.getYear()-birthday.getYear();
 		
 	}
 	
-	public Double getGaji() {
-		Double gaji=0.0;
-		for(int i=0;i<daftarJabatan.size();i++) {
-			if(daftarJabatan.get(i).getGaji_pokok()>gaji) {
-				gaji = daftarJabatan.get(i).getGaji_pokok();
+	public double getGaji() {
+		double totalGaji=0.0;
+		for(int i=0;i<listJabatan.size();i++) {
+			if(listJabatan.get(i).getGajiPokok()>totalGaji) {
+				totalGaji = listJabatan.get(i).getGajiPokok();
 			}
 		}
 		
-		Double tunjangan = (instansi.getProvinsi().getPresentase_tunjangan()/100)*gaji;
-		gaji+=tunjangan;
-		return gaji;
+		double tunjangan = (instansi.getProvinsi().getPresentaseTunjangan()/100)*totalGaji;
+		totalGaji+=tunjangan;
+		return totalGaji;
 	}
 }

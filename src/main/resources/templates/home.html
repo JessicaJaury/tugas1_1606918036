@@ -22,7 +22,7 @@
 		<form th:action="@{/pegawai}" method="GET">
 			<input type="text" name="nip" class="form-control" maxlength="255"/>
 			<p></p>
-			<button type="submit" class="btn btn-info">Lihat</button>
+			<button type="submit" class="btn" style="background-color: #696969; color:white">Lihat</button>
 		</form>
 	</div>
 	<hr>
@@ -35,7 +35,7 @@
 		    	<option th:each="jabatan : ${allJabatan}" th:value="${jabatan.id}" th:text="${jabatan.nama}"></option>
 		    </select>
 		    <p></p>
-		    <button type="submit" class="btn btn-info">Lihat</button>
+		    <button type="submit" class="btn" style="background-color: #696969; color:white">Lihat</button>
 		</form>
 	</div>
 	<hr>
@@ -48,7 +48,7 @@
 		    	<option th:each="instansi : ${allInstansi}" th:value="${instansi.id}" th:text="${instansi.nama}+ ' - '+${instansi.provinsi.nama}"></option>
 		    </select>
 		    <p></p>
-		    <button type="submit" class="btn btn-info">Lihat</button>
+		    <button type="submit" class="btn" style="background-color: #696969; color:white">Lihat</button>
 		</form>
 	</div>
 </body>
